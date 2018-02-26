@@ -28,11 +28,6 @@ var User = mongoose.model('users', schema);
 
 router.get('/login', async (ctx, next) => {
 
-    // 设置响应正文
-    ctx.body = {
-        msg: ""
-    };
-
     // 设置响应头部
     ctx.set({
         // 设置允许跨域
@@ -46,9 +41,13 @@ router.get('/login', async (ctx, next) => {
     let docs = await User.find({ name: params.name, password: params.password });
 
     if (docs.length) {
-        ctx.body.msg = "登陆成功";
+        ctx.body = {
+            msg: "登陆成功"
+        };
     } else {
-        ctx.body.msg = "用户名或密码错误";
+        ctx.body = {
+            msg: "用户名或密码错误"
+        };
     }
 
 })
@@ -59,10 +58,6 @@ router.get('/login', async (ctx, next) => {
 
 router.get('/register', async (ctx, next) => {
 
-    // 定义响应正文格式
-    ctx.body = {
-        msg: ""
-    }
     // 设置响应头部
     ctx.set({
         // 设置允许跨域
@@ -76,17 +71,23 @@ router.get('/register', async (ctx, next) => {
     let docs = await User.find({ name: params.name });
 
     if (docs.length) {
-        ctx.body.msg = "用户名已存在！";
+        ctx.body = {
+            msg: "用户名已存在！"
+        };
     } else {
         // 创建一个属性 
         var user = new User({ name: params.name, password: params.password });
         // 存储注册信息到记录到数据库
-        let err = await user.save(function (err) { })
+        let err = await user.save();
 
         if (err) {
-            ctx.body.msg = "注册失败！";
+            ctx.body = {
+                msg: "注册失败！"
+            };
         } else {
-            ctx.body.msg = "注册成功！";
+            ctx.body = {
+                msg: "注册成功！"
+            };
         }
     }
 })
