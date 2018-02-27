@@ -13,7 +13,7 @@ mongoose.connect('mongodb://localhost:27017/demo2');
 
 // 文档验证
 // required: 数据必须填写
-// default: 默认值
+// default: 默认值 
 // validate: 自定义匹配
 // min: 最小值(只适用于数字)
 // max: 最大值(只适用于数字)
@@ -49,7 +49,6 @@ router.get('/login', async (ctx, next) => {
             msg: "用户名或密码错误"
         };
     }
-
 })
 
 /**
